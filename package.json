@@ -1,0 +1,12 @@
+{
+  "name": "hairday",
+  "description": "Aplicação Web de agendamento para corte de cabelo.",
+  "author": "Ruhan Mendes",
+  "scripts": {
+    "server": "json-server --watch server.json --port 3333"
+  },
+
+  "dependencies": {
+    "json-server": "^1.0.0-alpha.21"
+  }
+}
