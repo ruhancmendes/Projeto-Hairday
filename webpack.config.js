@@ -1,5 +1,6 @@
 //definir as configurações do webpack
 const path = require("node:path");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
   target: "web",
@@ -19,5 +20,11 @@ module.exports = {
     port: 3000,
     open: true, // abre o navegador automaticamente
     liveReload: true, // ativa o recarregamento automático
-  }
+  },
+
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: path.resolve(__dirname, "index.html"), // arquivo HTML de entrada
+    }),
+  ],
 };
