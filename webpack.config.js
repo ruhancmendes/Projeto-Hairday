@@ -1,6 +1,7 @@
 //definir as configurações do webpack
 const path = require("node:path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const CopyWebpackPlugin = require("copy-webpack-plugin");
 
 module.exports = {
   target: "web",
@@ -28,6 +29,14 @@ module.exports = {
       template: path.resolve(__dirname, "index.html"), // arquivo HTML de entrada
       favicon: path.resolve("src", "assets", "scissors.svg"), // ícone do aplicativo
     }),
+    new CopyWebpackPlugin({
+      patterns: [
+        {
+          from: path.resolve(__dirname, "src", "assets"), // diretório de origem
+          to: path.resolve(__dirname, "dist", "src", "assets"), // diretório de destino
+        },
+      ],
+    }),
   ],
 
   module: {
@@ -35,7 +44,7 @@ module.exports = {
       {
         test: /\.css$/,
         use: ["style-loader", "css-loader"], // carrega arquivos CSS
-      }
-    ]
-  }
+      },
+    ],
+  },
 };
