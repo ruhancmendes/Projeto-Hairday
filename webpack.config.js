@@ -45,6 +45,17 @@ module.exports = {
         test: /\.css$/,
         use: ["style-loader", "css-loader"], // carrega arquivos CSS
       },
+
+      {
+        test: /\.js$/,
+        exclude: /node_modules/, // exclui a pasta node_modules
+        use: {
+          loader: "babel-loader", // carrega arquivos JavaScript
+          options: {
+            presets: ["@babel/preset-env"], // usa o preset-env do Babel
+          },
+        },
+      },
     ],
   },
 };
