@@ -7,6 +7,9 @@ import { hoursClick } from "./hours-click.js";
 const hours = document.getElementById("hours"); //Seleciona o elemento HTML com o id "hours" (UL)
 
 export function hoursLoad({ date }) {
+// Limpa a lista de horários quando é trocado o dia. 
+hours.innerHTML = ""
+
   const opening = openingHours.map((hour) => {
     //Recupera somente a hora.
     const [scheduleHour] = hour.split(":");
