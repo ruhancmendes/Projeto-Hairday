@@ -18,7 +18,7 @@ module.exports = {
     static: {
       directory: path.join(__dirname, "dist"), // diretório onde os arquivos estáticos estão localizados
     },
-    port: 3000,
+    port: 3000, // porta do servidor
     open: true, // abre o navegador automaticamente
     liveReload: true, // ativa o recarregamento automático
   },

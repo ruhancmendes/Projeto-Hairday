@@ -1,6 +1,8 @@
 // Configurando o submit do formulário.
 import dayjs from "dayjs"; // Importa a biblioteca dayjs para manipulação de datas.
 
+import { scheduleNew } from "../../services/schedule-new.js"; // Importa a função scheduleNew para agendar um novo horário.
+
 const form = document.querySelector("form");
 const clientName = document.getElementById("client");
 const selectedDate = document.getElementById("date");
@@ -12,7 +14,7 @@ const inputToday = dayjs(new Date()).format("YYYY-MM-DD");
 selectedDate.value = inputToday;
 selectedDate.min = inputToday;
 
-form.onsubmit = (event) => {
+form.onsubmit = async (event) => {
   event.preventDefault(); // Previne o comportamento padrão do formulário de atualizar a página após o envio.
 
   try {
@@ -39,6 +41,12 @@ form.onsubmit = (event) => {
     // Gerando um ID
     const id = new Date().getTime();
 
+    // Criando um objeto com os dados do agendamento.
+    await scheduleNew({
+      id,
+      name,
+      when,
+    })
     
   } catch (error) {
     alert("Não foi possível realizar o agendamento.");

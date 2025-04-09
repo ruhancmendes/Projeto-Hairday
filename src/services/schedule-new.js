@@ -9,11 +9,11 @@ export async function scheduleNew({ id, name, when }) {
         headers: {
             "content-Type": "application/json",
         },
-        body: JSON.stringify({ id, name, when}),
+        body: JSON.stringify({ id, name, when }),
     })
 
     alert("Agendamento realizado com sucesso!")
   } catch (error) {
-    alert("não foi possível agendar. Tente novamente mais tarde.");
+    alert("Não foi possível agendar. Tente novamente mais tarde.");
   }
 }
