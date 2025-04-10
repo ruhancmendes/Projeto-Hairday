@@ -6,20 +6,27 @@ import { hoursClick } from "./hours-click.js";
 
 const hours = document.getElementById("hours"); //Seleciona o elemento HTML com o id "hours" (UL)
 
-export function hoursLoad({ date }) {
-// Limpa a lista de horários quando é trocado o dia. 
-hours.innerHTML = ""
+export function hoursLoad({ date, dailySchedules }) {
+  // Limpa a lista de horários quando é trocado o dia.
+  hours.innerHTML = "";
+
+  // Obtém a list de horários ocupados.
+  const unavailableHours = dailySchedules.map((schedule) =>
+    dayjs(schedule.when).format("HH:mm")
+  );
 
   const opening = openingHours.map((hour) => {
     //Recupera somente a hora.
     const [scheduleHour] = hour.split(":");
 
     // Adiciona a hora na data e verifica se está no passado.
-    const isHourPast = dayjs(date).add(scheduleHour, "hour").isAfter(dayjs());
+    const isHourPast = dayjs(date).add(scheduleHour, "hour").isBefore(dayjs());
+
+    const available = !unavailableHours.includes(hour) && !isHourPast;
 
     return {
       hour,
-      available: isHourPast,
+      available,
     };
   });
 
@@ -32,27 +39,26 @@ hours.innerHTML = ""
     li.textContent = hour;
 
     // Adiciona o cabeçalho antes dos horários.
-    if(hour === "9:00"){
-        hourHeaderAdd("Manhã")
-    } else if (hour === "13:00"){
-        hourHeaderAdd("Tarde")
-    } else if (hour === "18:00"){
-        hourHeaderAdd("Noite")
+    if (hour === "9:00") {
+      hourHeaderAdd("Manhã");
+    } else if (hour === "13:00") {
+      hourHeaderAdd("Tarde");
+    } else if (hour === "18:00") {
+      hourHeaderAdd("Noite");
     }
-
 
     hours.append(li); // Adiciona o item na UL. o horário na lista.
   });
 
   // Adiciona o evento de clique para os horários disponíveis.
-  hoursClick()
+  hoursClick();
 }
 
 // Função para adicionar o cabeçalho dos horários, manhã tarde e noite.
-function hourHeaderAdd (title) {
-    const header = document.createElement("li")
-    header.classList.add("hour-period")
-    header.textContent = title
+function hourHeaderAdd(title) {
+  const header = document.createElement("li");
+  header.classList.add("hour-period");
+  header.textContent = title;
 
-    hours.append(header)
+  hours.append(header);
 }

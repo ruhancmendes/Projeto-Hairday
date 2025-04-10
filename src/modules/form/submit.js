@@ -3,6 +3,8 @@ import dayjs from "dayjs"; // Importa a biblioteca dayjs para manipulação de d
 
 import { scheduleNew } from "../../services/schedule-new.js"; // Importa a função scheduleNew para agendar um novo horário.
 
+import { schedulesDay } from "../schedules/load.js"; // Importa a função load para recarregar os agendamentos.
+
 const form = document.querySelector("form");
 const clientName = document.getElementById("client");
 const selectedDate = document.getElementById("date");
@@ -41,13 +43,19 @@ form.onsubmit = async (event) => {
     // Gerando um ID
     const id = new Date().getTime();
 
-    // Criando um objeto com os dados do agendamento.
+    // Criando um objeto com os dados do agendamento. (faz agendamento)
     await scheduleNew({
       id,
       name,
       when,
     })
     
+    // Recarrega os agendamentos. 
+    await schedulesDay();
+
+    // Limpa o input de nome do cliente.
+    clientName.value = "";
+
   } catch (error) {
     alert("Não foi possível realizar o agendamento.");
   }
